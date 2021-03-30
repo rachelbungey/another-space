@@ -154,7 +154,6 @@
       <a-asset-item id="hand_left" src="assets/models/hand_left.glb"></a-asset-item>
       <audio id="gallery-background-sound" src="assets/sounds/inception.mp3" preload="auto"></audio>
     </a-assets>
-    <a-entity id="ambiLight" light="type: ambient; color: #FFF; intensity: 0.3"></a-entity>
 
     <a-entity id="camera-rig" position="0 0 0.85" cc-keyboard-controls="acceleration: 14" cc-vr-controls="speed: 0.4"
       collisions mover quick-turn>
@@ -166,19 +165,27 @@
     </a-entity>
 
     <a-entity id="city-scene" visible="true">
-      <a-entity light="type: hemisphere; color: #ffffff"></a-entity>
+      <a-entity id="dirLight" light="type: directional; color: #FFF; intensity: 2.1" position="-0.5 1 1"></a-entity>
+      <a-entity id="ambiLight" light="type: ambient; color: #FFF; intensity: 0.1"></a-entity>
 
       <a-entity sound="src: #gallery-background-sound; positional: false; autoplay: true; loop: true; volume: 0.8;">
       </a-entity>
 
 
-      <a-entity collider gltf-part="src: #evironment; part: center">
+      <a-entity collider cc-material gltf-part="src: #evironment; part: center">
       </a-entity>
       <a-entity collider cc-material gltf-part="src: #evironment; part: side1">
       </a-entity>
       <a-entity collider cc-material gltf-part="src: #evironment; part: side2">
       </a-entity>
-      <a-entity cc-material="transparent: true" gltf-part="src: #evironment; part: shrub1">
+      <a-entity caustic-material="alphaVal:  0.1;  color2:  #dbf8ff;  color1:  #5d84b6;  color:  #00fffb" gltf-part="src: #evironment; part: water">
+      </a-entity>
+
+      
+
+      <a-entity caustic-material=" color2:  #ebffee;  color1:  #adfaff;  color:  #00fffb" gltf-part="src: #evironment; part: inside">
+      </a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: outside">
       </a-entity>
       <a-entity collider gltf-part="src: #plants; part: center_shrubs" transparent>
       </a-entity>

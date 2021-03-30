@@ -8,17 +8,17 @@ export default {
   schema: {
     timeMsec: { default: 1 },
     color: { type: "color", default: "#ffffff" },
-    color1: { type: "vec3", default:"0.610 0.870 1.690"},
-    color2: { type: "vec3", default:"1.230 1.350 1" },
-    transparent: { type: "bool", default: false },
+    color1: { type: "color", default:"#ffffff"},
+    color2: { type: "color", default:"#ffffff"},
+    alphaVal: { type: "float", default: 1 },
   },
 
   init: function () {
-    const { color, transparent } = this.data;
+    const { color, alphaVal } = this.data;
     console.log(this.data)
     this.uniforms = this.initVariables(this.data);
     this.vAmt = 0.0;
-
+    let transparent = (alphaVal < 0.99);
     this.materialOptions = {
       color: new THREE.Color(color),
       side: THREE.DoubleSide,
@@ -86,8 +86,12 @@ export default {
     let key;
     let variables = {};
     for (key in data) {
+      let val = data[key]
+      if(key.includes("color")) {
+        val = new THREE.Color(val);
+      }
       variables[key] = {
-        value: data[key],
+        value: val,
       };
     }
     return variables;
@@ -100,8 +104,12 @@ export default {
 
     let key;
     for (key in data) {
+      let val = data[key]
+      if(key.includes("color")) {
+        val = new THREE.Color(val);
+      }
       this.materialShaders.forEach((shader) => {
-        shader.uniforms[key].value = data[key];
+        shader.uniforms[key].value = val;
         shader.uniforms[key].needsUpdate = true;
       });
     }
