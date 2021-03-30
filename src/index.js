@@ -17,6 +17,7 @@ import SideArrows from './components/SideArrows';
 import ExampleSystem from './systems/ExampleSystem';
 import SoundSystem from './systems/SoundSystem';
 import GLTFPart from './components/GLTFPart';
+import CausticMaterial from './components/CausticMaterial';
 
 // Register all shaders
 
@@ -35,3 +36,4 @@ AFRAME.registerComponent('custom-vr-controller', CustomVRController);
 AFRAME.registerComponent('vr-button', VRButton);
 AFRAME.registerComponent('gltf-part', GLTFPart);
 AFRAME.registerComponent('side-arrows', SideArrows);
+AFRAME.registerComponent('caustic-material', CausticMaterial);

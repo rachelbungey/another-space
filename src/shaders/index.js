@@ -1,10 +1,10 @@
-import HeadVert from './HeadVert.glsl';
-import HeadFrag from './HeadFrag.glsl';
+import CausticVert from './CausticVert.glsl';
+import CausticFrag from './CausticFrag.glsl';
 
-export const Head = {
+export const Caustic = {
   schema: {
     timeMsec: { type: 'time', is: 'uniform' },
   },
-  vertexShader: HeadVert,
-  fragmentShader: HeadFrag,
+  vertexShader: CausticVert,
+  fragmentShader: CausticFrag,
 };
