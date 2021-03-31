@@ -19,6 +19,7 @@ import SoundSystem from './systems/SoundSystem';
 import GLTFPart from './components/GLTFPart';
 import CausticMaterial from './components/CausticMaterial';
 import CCBasicMaterial from './components/CCBasicMaterial';
+import ChromeMaterial from './components/ChromeMaterial';
 
 // Register all shaders
 
@@ -39,3 +40,4 @@ AFRAME.registerComponent('gltf-part', GLTFPart);
 AFRAME.registerComponent('side-arrows', SideArrows);
 AFRAME.registerComponent('caustic-material', CausticMaterial);
 AFRAME.registerComponent('cc-material', CCBasicMaterial);
+AFRAME.registerComponent('chrome-material', ChromeMaterial);

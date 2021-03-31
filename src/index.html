@@ -148,6 +148,7 @@
     loading-screen="enabled: false" fog="type: exponential; density: 0.00001; color: #ffffff" light="defaultLightsEnabled: false">
 
     <a-assets>
+      <img id="env-map" src="assets/textures/env.jpg" preload="auto" />
       <a-asset-item id="evironment" src="assets/models/env.glb"></a-asset-item>
       <a-asset-item id="plants" src="assets/models/plants.glb"></a-asset-item>
       <a-asset-item id="hand_right" src="assets/models/hand_right.glb"></a-asset-item>
@@ -171,6 +172,7 @@
       <a-entity sound="src: #gallery-background-sound; positional: false; autoplay: true; loop: true; volume: 0.8;">
       </a-entity>
 
+      <a-entity chrome-material="envMap: #env-map; envMapIntensity: 2; color: #000000" gltf-model="#hand_right" scale="10 10 10"></a-entity>
 
       <a-entity collider cc-material gltf-part="src: #evironment; part: center">
       </a-entity>
