@@ -22,6 +22,9 @@ uniform float opacity;
 #include <clipping_planes_pars_fragment>
 varying vec3 vViewPos;
 
+uniform float fakeSubsurface;
+uniform vec3 subsurfacecolor;
+
 void main() {
 	#include <clipping_planes_fragment>
 	vec4 diffuseColor = vec4( diffuse, opacity );
@@ -42,16 +45,27 @@ void main() {
 	vec3 normal = normalize( cross(dFdx(vViewPos.xyz), dFdy(vViewPos.xyz)) );
 
 	//add basic toon lighting 
+	vec3 lightAdded = vec3(0.0,0.0,0.0);
 	#if ( NUM_DIR_LIGHTS > 0 )
 		DirectionalLight directionalLight;
 		for ( int i = 0; i < NUM_DIR_LIGHTS; i ++ ) {
 			directionalLight = directionalLights[ i ];
 			float lightAmt = saturate(dot(directionalLight.direction, normal));
-			reflectedLight.directDiffuse += lightAmt*directionalLight.color;
+			lightAdded += lightAmt*directionalLight.color;
 		}
 	#endif
-
+	reflectedLight.directDiffuse += lightAdded;
     reflectedLight.directDiffuse *= diffuseColor.rgb;
+	if(fakeSubsurface > 0.0) {
+		// diffuseColor.a -= 20.0*length(reflectedLight.directDiffuse) * length(diffuseColor.rgb);
+		//how much light was added
+		float l_coef = 1.0 - min(length(lightAdded),1.0); 
+		//base color
+		float d_coef = (pow(1.0-length(diffuseColor.rgb),20.0)); 
+		diffuseColor.a *= 1.0 - l_coef*d_coef - 0.1*d_coef;
+		reflectedLight.directDiffuse.rgb += 0.6*d_coef * l_coef * subsurfacecolor;
+		reflectedLight.directDiffuse.rgb += 0.2*d_coef*(1.0-l_coef)*subsurfacecolor;
+	}
 
 	vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse;
 
@@ -61,4 +75,6 @@ void main() {
 	@import ./FogFrag;
 	#include <premultiplied_alpha_fragment>
 	#include <dithering_fragment>
+
+	if ( diffuseColor.a < 0.5 ) discard;
 }

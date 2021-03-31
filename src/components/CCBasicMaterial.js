@@ -7,6 +7,8 @@ import CCBasicFrag from "../shaders/CCBasicFrag.glsl";
 export default {
   schema: {
     timeMsec: { default: 1 },
+    fakeSubsurface: { default: 0 },
+    subsurfacecolor: { type: "color", default: "#ffffff" },
     color: { type: "color", default: "#ffffff" },
     vertexColors: { type: "string", default: "" },
     instanced: { type: "bool", default: false },
@@ -22,6 +24,7 @@ export default {
       color: new THREE.Color(color),
       side: THREE.DoubleSide,
       transparent: transparent,
+      alphaTest: 0.5,
     };
 
     switch (vertexColors) {
@@ -103,8 +106,12 @@ export default {
     let key;
     let variables = {};
     for (key in data) {
+      let val = data[key]
+      if(key.includes("color")) {
+        val = new THREE.Color(val);
+      }
       variables[key] = {
-        value: data[key],
+        value: val,
       };
     }
     return variables;
@@ -117,8 +124,12 @@ export default {
 
     let key;
     for (key in data) {
+      let val = data[key]
+      if(key.includes("color")) {
+        val = new THREE.Color(val);
+      }
       this.materialShaders.forEach((shader) => {
-        shader.uniforms[key].value = data[key];
+        shader.uniforms[key].value = val;
         shader.uniforms[key].needsUpdate = true;
       });
     }
