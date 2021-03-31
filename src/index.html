@@ -144,8 +144,8 @@
     });
   </script>
 
-  <a-scene renderer="colorManagement: true" background="color: #eef4fd" visible=true vr-button
-    loading-screen="enabled: false" light="defaultLightsEnabled: false">
+  <a-scene stats renderer="colorManagement: true" background="color: #eef4fd" visible=true vr-button
+    loading-screen="enabled: false" fog="type: exponential; density: 0.00001; color: #ffffff" light="defaultLightsEnabled: false">
 
     <a-assets>
       <a-asset-item id="evironment" src="assets/models/env.glb"></a-asset-item>
@@ -165,8 +165,8 @@
     </a-entity>
 
     <a-entity id="city-scene" visible="true">
-      <a-entity id="dirLight" light="intensity: 2.1" position="-1.019 13.332 -4.48"></a-entity>
-      <a-entity id="ambiLight" light="type: ambient; color: #FFF; intensity: 0.1"></a-entity>
+      <a-entity id="dirLight" light="color: #d1e7ff; intensity: 2" position="1 1 -4.48"></a-entity>
+      <a-entity id="ambiLight" light="type: ambient; color: #d1e7ff; intensity: 0.05" visible=""></a-entity>
 
       <a-entity sound="src: #gallery-background-sound; positional: false; autoplay: true; loop: true; volume: 0.8;">
       </a-entity>
@@ -178,12 +178,12 @@
       </a-entity>
       <a-entity collider cc-material gltf-part="src: #evironment; part: side2">
       </a-entity>
-      <a-entity caustic-material="alphaVal:  0.1;  color2:  #dbf8ff;  color1:  #5d84b6;  color:  #00fffb" gltf-part="src: #evironment; part: water">
+      <a-entity caustic-material="alphaVal:  0.1;  color1:  #5e79a1;  color:  #00fffb" gltf-part="src: #evironment; part: water">
       </a-entity>
 
       
 
-      <a-entity caustic-material=" color2:  #ebffee;  color1:  #adfaff;  color:  #00fffb" gltf-part="src: #evironment; part: inside">
+      <a-entity caustic-material="color1:  #add9ff;  color:  #00fffb" gltf-part="src: #evironment; part: inside">
       </a-entity>
       <a-entity cc-material gltf-part="src: #evironment; part: outside">
       </a-entity>

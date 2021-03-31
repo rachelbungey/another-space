@@ -7,12 +7,11 @@ uniform float timeMsec;
 uniform float alphaVal;
 void main() {
   float noise1 = 0.5 + cnoise(0.5*vWorldPos + timeMsec);
-  float noise2 = 0.5 + cnoise(0.5*vWorldPos + timeMsec);
   float col1 = pow(0.5 + 0.5 * sin(noise1*1.9*vWorldPos.x),8.0 + sin(timeMsec));
-  float col3 = pow(0.5 + 0.5 * cos(noise2*2.1*vWorldPos.z)*cos(noise2*5.0*vWorldPos.z),8.0+ cos(timeMsec));
+  float col3 = pow(0.5 + 0.5 * cos(noise1*2.1*vWorldPos.z)*cos(noise1*5.0*vWorldPos.z),8.0+ cos(timeMsec));
 
-  float col = min(min( col1, col3),noise2) + 0.1*max(col1,col3);
-  gl_FragColor = vec4( mix(color1, 1.6*color2, col), alphaVal );
+  float col = min(min( col1, col3),noise1) + 0.1*max(col1,col3);
+  gl_FragColor = vec4( mix(color1, color2, col), alphaVal );
 }
 
 

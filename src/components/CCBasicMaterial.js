@@ -141,7 +141,7 @@ export default {
   tick: function (time, timeDelta) {
     if (this.materialShaders.length > 0) {
       this.materialShaders.forEach((shader) => {
-        shader.uniforms.timeMsec.value = time;
+        shader.uniforms.timeMsec.value = time/20000;
       });
     }
   },

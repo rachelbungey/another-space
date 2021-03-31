@@ -1,10 +1,14 @@
 @import ./PerlinNoise;
 varying vec2 vUv;
-
+uniform float timeMsec;
 varying vec3 vWorldPos;
-
+uniform float alphaVal;
 void main() {
   vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+  if(alphaVal < 1.0) {
+    worldPosition.y += 0.004*sin(10.0*worldPosition.x + 100.0*timeMsec);
+  }
+
   vWorldPos = worldPosition.xyz;
   vWorldPos.x += 20.0;
   vWorldPos.z += 20.0;

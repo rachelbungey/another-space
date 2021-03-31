@@ -77,8 +77,17 @@ void main() {
 	reflectedLight.directDiffuse.rgb += 0.6*d_coef * l_coef * subsurfacecolor;
 	reflectedLight.directDiffuse.rgb += 0.2*d_coef*(1.0-l_coef)*subsurfacecolor;
 #endif
-
 	vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse;
+
+#ifdef CAUSTIC
+	float closenessToGround = 1.0 - smoothstep(0.0, 1.1, vWorldPos.y)/1.1;
+	float noise1 = 0.5 + cnoise(0.5*vWorldPos.xyz + timeMsec);
+	float col1 = pow(0.5 + 0.5 * sin(noise1*1.9*vWorldPos.x),8.0 + sin(timeMsec));
+	float col3 = pow(0.5 + 0.5 * cos(noise1*2.1*vWorldPos.z)*cos(noise1*5.0*vWorldPos.z),8.0+ cos(timeMsec));
+
+	float col = min(min( col1, col3),noise1) + 0.1*max(col1,col3);
+	outgoingLight += 0.1*col*closenessToGround;
+#endif
 
 	gl_FragColor = vec4( outgoingLight, diffuseColor.a);
 
