@@ -11,6 +11,7 @@
 @import ./PerlinNoise;
 
 varying vec3 vViewPos;
+varying vec3 vViewDir;
 
 void main() {
 	#include <uv_vertex>
@@ -41,4 +42,5 @@ void main() {
 	@import ./FogVert;
 
 	vViewPos = mvPosition.xyz;
+	vViewDir = normalize(worldPosition.xyz - cameraPosition.xyz);
 }

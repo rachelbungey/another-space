@@ -86,6 +86,9 @@ export default {
   createMaterial: function (materialOptions) {
     let mat = new THREE.MeshPhongMaterial(materialOptions);
     mat.defines = {};
+    if(this.data.fakeSubsurface > 0) {
+      mat.defines.FAKE_SUBSURFACE = ""
+    }
     mat.onBeforeCompile = (shader) => {
       shader.uniforms = THREE.UniformsUtils.merge([
         this.uniforms,

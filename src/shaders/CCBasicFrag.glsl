@@ -21,6 +21,7 @@ uniform float opacity;
 #include <logdepthbuf_pars_fragment>
 #include <clipping_planes_pars_fragment>
 varying vec3 vViewPos;
+varying vec3 vViewDir;
 
 uniform float fakeSubsurface;
 uniform vec3 subsurfacecolor;
@@ -46,26 +47,36 @@ void main() {
 
 	//add basic toon lighting 
 	vec3 lightAdded = vec3(0.0,0.0,0.0);
+	
+	#ifdef FAKE_SUBSURFACE
+	vec3 backlightAdded = vec3(0.0,0.0,0.0);
+	#endif
+
 	#if ( NUM_DIR_LIGHTS > 0 )
 		DirectionalLight directionalLight;
 		for ( int i = 0; i < NUM_DIR_LIGHTS; i ++ ) {
 			directionalLight = directionalLights[ i ];
 			float lightAmt = saturate(dot(directionalLight.direction, normal));
 			lightAdded += lightAmt*directionalLight.color;
+		#ifdef FAKE_SUBSURFACE
+			float backLightAmt = saturate(dot(-directionalLight.direction, normal));
+			backLightAmt *= saturate(dot(-directionalLight.direction, -vViewDir));
+			backlightAdded += backLightAmt*directionalLight.color;
+		#endif
 		}
 	#endif
 	reflectedLight.directDiffuse += lightAdded;
     reflectedLight.directDiffuse *= diffuseColor.rgb;
-	if(fakeSubsurface > 0.0) {
-		// diffuseColor.a -= 20.0*length(reflectedLight.directDiffuse) * length(diffuseColor.rgb);
-		//how much light was added
-		float l_coef = 1.0 - min(length(lightAdded),1.0); 
-		//base color
-		float d_coef = (pow(1.0-length(diffuseColor.rgb),20.0)); 
-		diffuseColor.a *= 1.0 - l_coef*d_coef - 0.1*d_coef;
-		reflectedLight.directDiffuse.rgb += 0.6*d_coef * l_coef * subsurfacecolor;
-		reflectedLight.directDiffuse.rgb += 0.2*d_coef*(1.0-l_coef)*subsurfacecolor;
-	}
+
+#ifdef FAKE_SUBSURFACE
+	//how much light was added
+	float l_coef = min(length(backlightAdded),1.0); 
+	//base color
+	float d_coef = (pow(1.0-length(diffuseColor.rgb),20.0)); 
+	diffuseColor.a *= 1.0 - l_coef*d_coef - 0.1*d_coef;
+	reflectedLight.directDiffuse.rgb += 0.6*d_coef * l_coef * subsurfacecolor;
+	reflectedLight.directDiffuse.rgb += 0.2*d_coef*(1.0-l_coef)*subsurfacecolor;
+#endif
 
 	vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse;
 
