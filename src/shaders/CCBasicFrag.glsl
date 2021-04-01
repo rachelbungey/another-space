@@ -81,7 +81,7 @@ void main() {
 	vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse;
 
 #ifdef CAUSTIC
-	float closenessToGround = 1.0 - smoothstep(0.0, 1.1, vWorldPos.y)/1.1;
+	float closenessToGround = smoothstep(0.0, 3.0, vWorldPos.y)/3.0;
 	float noise1 = 0.5 + cnoise(0.5*vWorldPos.xyz + timeMsec);
 	float col1 = pow(0.5 + 0.5 * sin(noise1*1.9*vWorldPos.x),8.0 + sin(timeMsec));
 	float col3 = pow(0.5 + 0.5 * cos(noise1*2.1*vWorldPos.z)*cos(noise1*5.0*vWorldPos.z),8.0+ cos(timeMsec));

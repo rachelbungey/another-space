@@ -176,10 +176,8 @@
 
       <a-entity collider cc-material gltf-part="src: #evironment; part: center_floor"></a-entity>
       <a-entity collider cc-material="caustic: true" gltf-part="src: #evironment; part: center_walls"></a-entity>
-      <a-entity collider cc-material gltf-part="src: #evironment; part: center_ceiling"></a-entity>
-      <a-entity collider cc-material gltf-part="src: #evironment; part: pool_inside"></a-entity>
+      <a-entity collider cc-material="caustic: true" gltf-part="src: #evironment; part: center_ceiling"></a-entity>
       <a-entity collider cc-material gltf-part="src: #evironment; part: pool_outside"></a-entity>
-      <a-entity collider cc-material gltf-part="src: #evironment; part: pool_water"></a-entity>
       <a-entity collider cc-material gltf-part="src: #evironment; part: outer_walls_L"></a-entity>
       <a-entity collider cc-material gltf-part="src: #evironment; part: inner_walls_L"></a-entity>
       <a-entity collider cc-material gltf-part="src: #evironment; part: ceiling3_L"></a-entity>
@@ -199,9 +197,7 @@
 
       <a-entity caustic-material="alphaVal:  0.1;  color1:  #5e79a1;  color:  #00fffb" gltf-part="src: #evironment; part: pool_water">
       </a-entity>
-      <a-entity caustic-material="color1:  #add9ff;  color:  #00fffb" gltf-part="src: #evironment; part: pool_inside">
-      </a-entity>
-      <a-entity cc-material gltf-part="src: #evironment; part: pool_outside">
+      <a-entity caustic-material="color1:  #cee7fd;  color:  #00fffb" gltf-part="src: #evironment; part: pool_inside">
       </a-entity>
       <a-entity cc-material="fakeSubsurface:  1;  transparent:  true;  subsurfacecolor:  #bbff00" position="0 0 0" gltf-part="src: #plants; part: center_shrubs">
       </a-entity>
