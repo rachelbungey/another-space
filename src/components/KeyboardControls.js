@@ -301,6 +301,9 @@ export default {
       if (keys.KeyD || keys.ArrowRight) {
         velocity[adAxis] += adSign * acceleration * delta;
       }
+      if(!keys.KeyD && !keys.KeyA && !keys.ArrowLeft && !keys.ArrowRight) {
+        velocity[adAxis] = 0;
+      }
     }
     if (data.wsEnabled) {
       wsSign = data.wsInverted ? -1 : 1;
@@ -309,6 +312,9 @@ export default {
       }
       if (keys.KeyS || keys.ArrowDown) {
         velocity[wsAxis] += wsSign * acceleration * delta;
+      }
+      if(!keys.KeyW && !keys.KeyS && !keys.ArrowUp && !keys.ArrowDown) {
+        velocity[wsAxis] = 0;
       }
     }
   },
