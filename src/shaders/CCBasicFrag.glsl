@@ -43,14 +43,13 @@ void main() {
 
 	// ambient*diffuse
 
+#ifdef FAKE_SUBSURFACE
 	vec3 normal = normalize( cross(dFdx(vViewPos.xyz), dFdy(vViewPos.xyz)) );
 
 	//add basic toon lighting 
 	vec3 lightAdded = vec3(0.0,0.0,0.0);
 	
-	#ifdef FAKE_SUBSURFACE
 	vec3 backlightAdded = vec3(0.0,0.0,0.0);
-	#endif
 
 	#if ( NUM_DIR_LIGHTS > 0 )
 		DirectionalLight directionalLight;
@@ -58,17 +57,15 @@ void main() {
 			directionalLight = directionalLights[ i ];
 			float lightAmt = saturate(dot(directionalLight.direction, normal));
 			lightAdded += lightAmt*directionalLight.color;
-		#ifdef FAKE_SUBSURFACE
 			float backLightAmt = saturate(dot(-directionalLight.direction, normal));
 			backLightAmt *= saturate(dot(-directionalLight.direction, -vViewDir));
 			backlightAdded += backLightAmt*directionalLight.color;
-		#endif
 		}
 	#endif
 	reflectedLight.directDiffuse += lightAdded;
     reflectedLight.directDiffuse *= diffuseColor.rgb;
 
-#ifdef FAKE_SUBSURFACE
+
 	//how much light was added
 	float l_coef = min(length(backlightAdded),1.0); 
 	//base color

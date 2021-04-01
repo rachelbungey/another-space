@@ -13,6 +13,7 @@ export default {
     vertexColors: { type: "string", default: "" },
     instanced: { type: "bool", default: false },
     transparent: { type: "bool", default: false },
+    caustic: { type: "bool", default: false },
   },
 
   init: function () {
@@ -88,6 +89,9 @@ export default {
     mat.defines = {};
     if(this.data.fakeSubsurface > 0) {
       mat.defines.FAKE_SUBSURFACE = ""
+    }
+    if(this.data.caustic) {
+      mat.defines.CAUSTIC = ""
     }
     mat.onBeforeCompile = (shader) => {
       shader.uniforms = THREE.UniformsUtils.merge([

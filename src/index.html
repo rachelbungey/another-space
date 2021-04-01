@@ -167,13 +167,13 @@
 
     <a-entity id="city-scene" visible="true">
       <a-entity id="dirLight" light="color: #d1e7ff; intensity: 2" position="1 1 -4.48"></a-entity>
-      <a-entity id="ambiLight" light="type: ambient; color: #d1e7ff; intensity: 0.05" visible=""></a-entity>
+      <a-entity id="ambiLight" light="type: ambient; color: #d1e7ff; intensity: 0.1" visible=""></a-entity>
 
       <a-entity sound="src: #gallery-background-sound; positional: false; autoplay: true; loop: true; volume: 0.8;">
       </a-entity>
 
       <a-entity collider cc-material gltf-part="src: #evironment; part: center_floor"></a-entity>
-      <a-entity collider cc-material gltf-part="src: #evironment; part: center_walls"></a-entity>
+      <a-entity collider cc-material="caustic: true" gltf-part="src: #evironment; part: center_walls"></a-entity>
       <a-entity collider cc-material gltf-part="src: #evironment; part: center_ceiling"></a-entity>
       <a-entity collider cc-material gltf-part="src: #evironment; part: pool_inside"></a-entity>
       <a-entity collider cc-material gltf-part="src: #evironment; part: pool_outside"></a-entity>

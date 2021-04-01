@@ -6,7 +6,7 @@ uniform float alphaVal;
 void main() {
   vec4 worldPosition = modelMatrix * vec4(position, 1.0);
   if(alphaVal < 1.0) {
-    worldPosition.y += 0.004*sin(10.0*worldPosition.x + 100.0*timeMsec);
+    // worldPosition.y += 0.04*sin(20.0*worldPosition.x + 100.0*timeMsec);
   }
 
   vWorldPos = worldPosition.xyz;
