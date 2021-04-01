@@ -20,11 +20,13 @@ uniform float opacity;
 #include <specularmap_pars_fragment>
 #include <logdepthbuf_pars_fragment>
 #include <clipping_planes_pars_fragment>
-varying vec3 vViewPos;
-varying vec3 vViewDir;
 
+#ifdef FAKE_SUBSURFACE
+varying vec3 vViewDir;
 uniform float fakeSubsurface;
 uniform vec3 subsurfacecolor;
+varying vec3 vNormal;
+#endif
 
 void main() {
 	#include <clipping_planes_fragment>
@@ -38,17 +40,16 @@ void main() {
  #endif
 	#include <color_fragment>
 	ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );
-	reflectedLight.indirectDiffuse += getAmbientLightIrradiance(ambientLightColor);
-	reflectedLight.indirectDiffuse *= diffuseColor.rgb;
+	// reflectedLight.indirectDiffuse += getAmbientLightIrradiance(ambientLightColor);
+	reflectedLight.indirectDiffuse += diffuseColor.rgb;
 
 	// ambient*diffuse
 
 #ifdef FAKE_SUBSURFACE
-	vec3 normal = normalize( cross(dFdx(vViewPos.xyz), dFdy(vViewPos.xyz)) );
+	vec3 normal = vNormal;
 
 	//add basic toon lighting 
 	vec3 lightAdded = vec3(0.0,0.0,0.0);
-	
 	vec3 backlightAdded = vec3(0.0,0.0,0.0);
 
 	#if ( NUM_DIR_LIGHTS > 0 )
@@ -57,7 +58,7 @@ void main() {
 			directionalLight = directionalLights[ i ];
 			float lightAmt = saturate(dot(directionalLight.direction, normal));
 			lightAdded += lightAmt*directionalLight.color;
-			float backLightAmt = saturate(dot(-directionalLight.direction, normal));
+			float backLightAmt = 1.0 - lightAmt;
 			backLightAmt *= saturate(dot(-directionalLight.direction, -vViewDir));
 			backlightAdded += backLightAmt*directionalLight.color;
 		}
@@ -65,15 +66,18 @@ void main() {
 	reflectedLight.directDiffuse += lightAdded;
     reflectedLight.directDiffuse *= diffuseColor.rgb;
 
-
-	//how much light was added
+	// // //how much light was added
 	float l_coef = min(length(backlightAdded),1.0); 
 	//base color
 	float d_coef = (pow(1.0-length(diffuseColor.rgb),20.0)); 
+
+
 	diffuseColor.a *= 1.0 - l_coef*d_coef - 0.1*d_coef;
-	reflectedLight.directDiffuse.rgb += 0.6*d_coef * l_coef * subsurfacecolor;
-	reflectedLight.directDiffuse.rgb += 0.2*d_coef*(1.0-l_coef)*subsurfacecolor;
+	reflectedLight.directDiffuse.rgb += 0.2*d_coef * l_coef * subsurfacecolor;
+	reflectedLight.directDiffuse.rgb += 0.1*d_coef*(1.0-l_coef)*subsurfacecolor;
 #endif
+
+
 	vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse;
 
 #ifdef CAUSTIC
@@ -83,7 +87,7 @@ void main() {
 	float col3 = pow(0.5 + 0.5 * cos(noise1*2.1*vWorldPos.z)*cos(noise1*5.0*vWorldPos.z),8.0+ cos(timeMsec));
 
 	float col = min(min( col1, col3),noise1) + 0.1*max(col1,col3);
-	outgoingLight += 0.1*col*closenessToGround;
+	outgoingLight += 0.3*col*closenessToGround;
 #endif
 
 	gl_FragColor = vec4( outgoingLight, diffuseColor.a);

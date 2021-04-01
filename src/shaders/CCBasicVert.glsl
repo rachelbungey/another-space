@@ -10,8 +10,10 @@
 #include <clipping_planes_pars_vertex>
 @import ./PerlinNoise;
 
-varying vec3 vViewPos;
+#ifdef FAKE_SUBSURFACE
 varying vec3 vViewDir;
+varying vec3 vNormal;
+#endif
 
 void main() {
 	#include <uv_vertex>
@@ -41,6 +43,8 @@ void main() {
 	#include <envmap_vertex>
 	@import ./FogVert;
 
-	vViewPos = mvPosition.xyz;
+	#ifdef FAKE_SUBSURFACE
 	vViewDir = normalize(worldPosition.xyz - cameraPosition.xyz);
+	vNormal = normal;
+	#endif
 }
