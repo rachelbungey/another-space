@@ -16,13 +16,12 @@ void main() {
  	mapColor = texture2D( map, vUv );
  	mapColor = mapTexelToLinear( mapColor );
   #endif
-  float noise1 = 0.5 + cnoise(0.5*vWorldPos + timeMsec);
-  float col1 = pow(0.5 + 0.5 * sin(noise1*1.9*vWorldPos.x),8.0 + sin(timeMsec));
-  float col3 = pow(0.5 + 0.5 * cos(noise1*2.1*vWorldPos.z)*cos(noise1*5.0*vWorldPos.z),8.0+ cos(timeMsec));
+  float noise1 = 1.2 + cnoise(0.7*vWorldPos + timeMsec);
+  float col1 = pow(0.5 + 0.5 * sin(noise1*1.0*vWorldPos.x - 9.0*timeMsec),8.0 + sin(4.0*timeMsec));
+  float col3 = pow(0.5 + 0.5 * cos(noise1*1.1*vWorldPos.z+ 11.0*timeMsec)*cos(noise1*2.0*vWorldPos.z + 10.0*timeMsec),8.0+ cos(timeMsec));
 
   float col = min(min( col1, col3),noise1) + 0.1*max(col1,col3);
-
-  gl_FragColor = vec4( mix(mapColor.xyz, 1.2*color2, col), alphaVal );
+  gl_FragColor = vec4( mix(mapColor.xyz, 1.4*color2, col), alphaVal );
 
 }
 
