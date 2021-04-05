@@ -15,6 +15,8 @@ varying vec3 vViewDir;
 varying vec3 vNormal;
 #endif
 
+varying float vInwardFacing;
+
 void main() {
 	#include <uv_vertex>
 
@@ -46,5 +48,9 @@ void main() {
 	#ifdef FAKE_SUBSURFACE
 	vViewDir = normalize(worldPosition.xyz - cameraPosition.xyz);
 	vNormal = normal;
+	#endif
+
+	#ifdef CAUSTIC
+	vInwardFacing = dot(normalize(position), normal);
 	#endif
 }

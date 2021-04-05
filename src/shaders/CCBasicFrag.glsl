@@ -2,6 +2,7 @@
 
 uniform vec3 diffuse;
 uniform float opacity;
+uniform float diffuseTexMult;
 
 #include <common>
 #include <dithering_pars_fragment>
@@ -28,6 +29,8 @@ uniform vec3 subsurfacecolor;
 varying vec3 vNormal;
 #endif
 
+varying float vInwardFacing;
+
 void main() {
 	#include <clipping_planes_fragment>
 	vec4 diffuseColor = vec4( diffuse, opacity );
@@ -36,7 +39,7 @@ void main() {
 #ifdef USE_MAP
  	vec4 texelColor = texture2D( map, vUv );
  	texelColor = mapTexelToLinear( texelColor );
- 	diffuseColor *= texelColor;
+ 	diffuseColor *= diffuseTexMult * texelColor;
  #endif
 	#include <color_fragment>
 	ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );
@@ -81,13 +84,15 @@ void main() {
 	vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse;
 
 #ifdef CAUSTIC
-	float closenessToGround = smoothstep(0.0, 3.0, vWorldPos.y)/3.0;
-	float noise1 = 0.5 + cnoise(0.5*vWorldPos.xyz + timeMsec);
-	float col1 = pow(0.5 + 0.5 * sin(noise1*1.9*vWorldPos.x),8.0 + sin(timeMsec));
-	float col3 = pow(0.5 + 0.5 * cos(noise1*2.1*vWorldPos.z)*cos(noise1*5.0*vWorldPos.z),8.0+ cos(timeMsec));
+	if(vInwardFacing < 0.5) {
+		float closenessToGround = smoothstep(0.0, 3.0, vWorldPos.y)/3.0;
+		float noise1 = 0.5 + cnoise(0.5*vWorldPos.xyz + timeMsec);
+		float col1 = pow(0.5 + 0.5 * sin(noise1*1.9*vWorldPos.x),8.0 + sin(timeMsec));
+		float col3 = pow(0.5 + 0.5 * cos(noise1*2.1*vWorldPos.z)*cos(noise1*5.0*vWorldPos.z),8.0+ cos(timeMsec));
 
-	float col = min(min( col1, col3),noise1) + 0.1*max(col1,col3);
-	outgoingLight += 0.3*col*closenessToGround;
+		float col = min(min( col1, col3),noise1) + 0.1*max(col1,col3);
+		outgoingLight += 0.3*col*closenessToGround;
+	}
 #endif
 
 	gl_FragColor = vec4( outgoingLight, diffuseColor.a);

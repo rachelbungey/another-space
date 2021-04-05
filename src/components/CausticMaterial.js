@@ -7,6 +7,7 @@ import CausticFrag from "../shaders/CausticFrag.glsl";
 export default {
   schema: {
     timeMsec: { default: 1 },
+    diffuseTexMult: { default: 1 },
     color: { type: "color", default: "#ffffff" },
     color1: { type: "color", default:"#ffffff"},
     color2: { type: "color", default:"#ffffff"},
