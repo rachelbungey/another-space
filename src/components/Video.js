@@ -30,9 +30,19 @@ export default {
     this.camera = camera.object3D;
     this.cameraWorldPos = new THREE.Vector3();
     this.objWorldPos = new THREE.Vector3();
+    this.canPause = false;
+    this.data.src.play();
   },
 
   tick: function (time, deltaTime) {
+    if(!this.canPause) {
+      if(this.data.src.currentTime > 2) {
+        this.data.src.pause();
+        this.canPause = true;
+      }
+      return;
+    }
+
     this.camera.getWorldPosition(this.cameraWorldPos);
 
     if (this.mesh) {

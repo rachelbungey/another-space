@@ -27,7 +27,6 @@ export default {
       color: new THREE.Color(this.data.color),
       envMap: cubeRenderTarget.texture,
     });
-
     this.el.addEventListener("object3dset", () => {
       this.mesh = this.el.getObject3D("mesh");
       this.cubeCamera.position.copy( this.mesh.position );
