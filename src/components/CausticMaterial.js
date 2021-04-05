@@ -15,7 +15,6 @@ export default {
 
   init: function () {
     const { color, alphaVal } = this.data;
-    console.log(this.data)
     this.uniforms = this.initVariables(this.data);
     this.vAmt = 0.0;
     let transparent = (alphaVal < 0.99);

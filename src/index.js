@@ -21,6 +21,8 @@ import CausticMaterial from './components/CausticMaterial';
 import CCBasicMaterial from './components/CCBasicMaterial';
 import ChromeMaterial from './components/ChromeMaterial';
 import Reflector from './components/Reflector';
+import Video from './components/Video';
+import Spin from './components/Spin';
 
 // Register all shaders
 
@@ -43,3 +45,6 @@ AFRAME.registerComponent('caustic-material', CausticMaterial);
 AFRAME.registerComponent('cc-material', CCBasicMaterial);
 AFRAME.registerComponent('chrome-material', ChromeMaterial);
 AFRAME.registerComponent('reflector', Reflector);
+AFRAME.registerComponent('video', Video);
+AFRAME.registerComponent('spin', Spin);
+

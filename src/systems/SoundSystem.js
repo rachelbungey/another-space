@@ -44,8 +44,8 @@ export default {
     const ascene = document.querySelector("a-scene");
 
     if (ascene) {
-      ascene.addEventListener('enter-vr', () => {
-        // turn sound on 
+      ascene.addEventListener("enter-vr", () => {
+        // turn sound on
         this.setSound(true);
       });
     }
@@ -69,14 +69,6 @@ export default {
 
         // Mute all sounds on start
         el.setAttribute("sound", { volume: 0 });
-
-        const numEntities =
-          this.soundEntities.length + this.videoEntities.length;
-
-        if (numEntities === Object.size(this.sounds)) {
-          console.log("[+] All sounds are loaded!");
-          this.addSoundButton();
-        }
       });
     });
 
@@ -90,6 +82,8 @@ export default {
 
       vid.volume = 0.0;
     });
+
+    this.addSoundButton();
   },
 
   addSoundButton: function () {

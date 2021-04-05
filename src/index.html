@@ -144,7 +144,7 @@
     });
   </script>
 
-  <a-scene stats renderer="colorManagement: true" background="color: #eef4fd" visible=true vr-button
+  <a-scene stats renderer="colorManagement: true" background="color: #eef4fd" visible=true vr-button sound-system
     loading-screen="enabled: false" fog="type: exponential; density: 0.00001; color: #ffffff" light="defaultLightsEnabled: false">
 
     <a-assets>
@@ -153,10 +153,17 @@
       <a-asset-item id="plants" src="assets/models/plants.glb"></a-asset-item>
       <a-asset-item id="hand_right" src="assets/models/hand_right.glb"></a-asset-item>
       <a-asset-item id="hand_left" src="assets/models/hand_left.glb"></a-asset-item>
-      <audio id="gallery-background-sound" src="assets/sounds/inception.mp3" preload="auto"></audio>
+      <audio id="gallery-background-sound" src="assets/sounds/Background ambience of a museum setting _AOS01433.mp3" preload="auto"></audio>
+
+      <video id="alex_bois-31" muted loop="true" src="assets/videos/31_Alex_Bois.mp4"></video>
+      <video id="harddrive-29" muted loop="true" src="assets/videos/29_Harddrive.mp4"></video>
+      <video id="flora-02" muted loop="true" src="assets/videos/02_Flora.mp4"></video>
+      <video id="emilia_wingfield-37" muted loop="true" src="assets/videos/37_Emilia_Wingfield.mp4"></video>
+      <video id="bram_smiley-10" muted loop="true" src="assets/videos/10_Bram_smiley.mp4"></video>
+      <video id="joel_scott-43" muted loop="true" src="assets/videos/43_Joel_Scott.mp4"></video>
     </a-assets>
 
-    <a-entity id="camera-rig" position="0 0 0.85" cc-keyboard-controls="acceleration: 14" cc-vr-controls="speed: 0.4"
+    <a-entity id="camera-rig" position="0 0 8" cc-keyboard-controls="acceleration: 30" cc-vr-controls="speed: 0.4"
       collisions mover quick-turn>
       <a-entity id="camera" position="0 1.6 0" camera look-controls>
       </a-entity>
@@ -202,16 +209,82 @@
       <a-entity cc-material="fakeSubsurface:  1;  transparent:  true;  subsurfacecolor:  #bbff00" position="0 0 0" gltf-part="src: #plants; part: center_shrubs">
       </a-entity>
 
-      <!-- ART -->
-      <a-entity material="shader:flat; wireframe: true; color: white" gltf-part="src: #evironment; part: 29_Harddrive"></a-entity>
+      <!-- SCULPTURES -->
+      <a-entity material="shader:flat; wireframe: true; color: white" gltf-part="src: #evironment; part: 29_Harddrive" spin></a-entity>
       <a-entity cc-material gltf-part="src: #evironment; part: 32_Saul_Frame"></a-entity>
       <a-entity chrome-material="envMapIntensity: 2; color: white" gltf-part="src: #evironment; part: 32_Saul_Mirror"></a-entity>
       <a-entity chrome-material="envMapIntensity: 2; color: white" gltf-part="src: #evironment; part: 28_Ben_khan"></a-entity>
-      <a-entity chrome-material="envMapIntensity: 2; color: white" gltf-part="src: #evironment; part: 24_Yorum_02"></a-entity>
       <a-entity chrome-material="envMapIntensity: 2; color: white" gltf-part="src: #evironment; part: 24_Yorum_01"></a-entity>
+      <a-entity chrome-material="envMapIntensity: 2; color: white" gltf-part="src: #evironment; part: 25_H2erg" spin></a-entity>
 
+      <!-- IMAGES -->
+      <a-entity cc-material gltf-part="src: #evironment; part: 26_Peony_Gent_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 36_Martha_Bailey_01_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 36_Martha_Bailey_01_02"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 23_Shane_Lester_02"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 36_Martha_Bailey_01_03"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 23_Shane_Lester_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 26_Peony_Gent_03"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 22_Kat"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 38_Anna_Sheridan_H2erg_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 34_Louise_Silfversparre_18"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 38_Anna_Sheridan_H2erg_02"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 21_Henry_Hoffman"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 39_Fabrizio_Manzi_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 20_Ivy_Mai"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 41_Paul_Beaudoin_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 19_Sarah_Scattergood"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 26_Peony_Gent_07"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 18_Sarah_Tucker_08"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 26_Peony_Gent_09"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 34_Louise_Silfversparre_13"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 33_Alex_vernon_03"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 18_Sarah_Tucker_05"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 35_Caitlin_Hickling_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 14_Mark_Manzi_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 13_BD85"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 14_Mark_Manzi_02"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 11_Mike_Zimmerman_02"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 14_Mark_Manzi_03"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 11_Mike_Zimmerman_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 34_Louise_Silfversparre_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 09_Bryce_Aspinall"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 15_Kyla_Callista_03"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 08_Jamal_Finni"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 34_Louise_Silfversparre_04"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 07_James_Mason_06"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 16_Daniel_Euphrat_02"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 07_James_Mason_05"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 16_Daniel_Euphrat_03"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 07_James_Mason_04"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 34_Louise_Silfversparre_06"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 07_James_Mason_03"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 17_Daniel_Emmanuel"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 07_James_Mason_02"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 34_Louise_Silfversparre_10"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 07_James_Mason_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 18_Sarah_Tucker_04"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 01_Ben_Clark"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 03_River_Cousins"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 04_Tolga_Tarhan_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 04_Tolga_Tarhan_02"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 04_Tolga_Tarhan_03"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 04_Tolga_Tarhan_04"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 04_Tolga_Tarhan_05"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 04_Tolga_Tarhan_06"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 05_Hin_01"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 05_Hin_02"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 05_Hin_03"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 06_Maura_Jamieson"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 42_Agnes_Jonas_01"></a-entity>
 
-
+      <!-- VIDEOS -->
+      <a-entity gltf-part="src: #evironment; part: 29_Harddrive1" video="src: #harddrive-29; triggerRadius: 4"></a-entity>
+      <a-entity gltf-part="src: #evironment; part: 37_Emilia_Wingfield" video="src: #emilia_wingfield-37"></a-entity>
+      <a-entity gltf-part="src: #evironment; part: 31_Alex_Bois" video="src: #alex_bois-31"></a-entity>
+      <a-entity gltf-part="src: #evironment; part: 02_Flora" video="src: #flora-02"></a-entity>
+      <a-entity gltf-part="src: #evironment; part: 10_Bram_smiley" video="src: #bram_smiley-10"></a-entity>
+      <a-entity gltf-part="src: #evironment; part: 43_Joel_Scott" video="src: #joel_scott-43"></a-entity>
     </a-entity>
   </a-scene>
 </body>
