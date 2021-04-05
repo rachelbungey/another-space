@@ -7,6 +7,7 @@ import CCBasicFrag from "../shaders/CCBasicFrag.glsl";
 export default {
   schema: {
     timeMsec: { default: 1 },
+    diffuseTexMult: { default: 1 },
     fakeSubsurface: { default: 0 },
     subsurfacecolor: { type: "color", default: "#ffffff" },
     color: { type: "color", default: "#ffffff" },

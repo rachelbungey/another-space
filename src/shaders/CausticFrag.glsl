@@ -5,6 +5,7 @@ uniform vec3 color1;
 uniform vec3 color2;
 uniform float timeMsec;
 uniform float alphaVal;
+uniform float diffuseTexMult;
 
 uniform sampler2D map;
 varying vec2 vUv;
@@ -14,7 +15,7 @@ void main() {
 
   #ifdef USE_MAP
  	mapColor = texture2D( map, vUv );
- 	mapColor = mapTexelToLinear( mapColor );
+ 	mapColor = diffuseTexMult * mapTexelToLinear( mapColor );
   #endif
   float noise1 = 1.2 + cnoise(0.7*vWorldPos + timeMsec);
   float col1 = pow(0.5 + 0.5 * sin(noise1*1.0*vWorldPos.x - 9.0*timeMsec),8.0 + sin(4.0*timeMsec));

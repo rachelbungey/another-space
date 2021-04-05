@@ -2,6 +2,7 @@
 
 uniform vec3 diffuse;
 uniform float opacity;
+uniform float diffuseTexMult;
 
 #include <common>
 #include <dithering_pars_fragment>
@@ -36,7 +37,7 @@ void main() {
 #ifdef USE_MAP
  	vec4 texelColor = texture2D( map, vUv );
  	texelColor = mapTexelToLinear( texelColor );
- 	diffuseColor *= texelColor;
+ 	diffuseColor *= diffuseTexMult * texelColor;
  #endif
 	#include <color_fragment>
 	ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );
