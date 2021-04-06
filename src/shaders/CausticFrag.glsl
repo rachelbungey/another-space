@@ -14,12 +14,7 @@ uniform sampler2D map;
 varying vec2 vUv;
 
 void main() {
-  vec4 mapColor = vec4(color1, 1.0);
 
-  #ifdef USE_MAP
- 	mapColor = texture2D( map, vUv );
- 	mapColor = diffuseTexMult * mapTexelToLinear( mapColor );
-  #endif
 
   float specColF = 0.0;
 
@@ -42,6 +37,16 @@ void main() {
 
   // col *= 1.0 + specColF;
   // col += 0.1 * specColF;
+
+  vec4 mapColor = vec4(color1, 1.0);
+
+  #ifdef USE_MAP
+  vec2 distortedUv = vUv + 0.035 * vec2 ( col, col );
+ 	mapColor = texture2D( map, distortedUv );
+ 	vec4 mapColor2 = texture2D( map, vUv );
+  mapColor = max(mapColor, mapColor2);
+ 	mapColor = diffuseTexMult * mapTexelToLinear( mapColor );
+  #endif
 
   gl_FragColor = vec4( mix(mapColor.xyz, 1.4*color2, col), alphaVal);
 
