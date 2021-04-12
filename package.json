@@ -1,12 +1,12 @@
 {
-  "name": "aframe-test-01",
+  "name": "another-space",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "webpack --colors",
     "start": "webpack-dev-server",
-    "deploy": "yarn build; scp -r dist/* kiko@codercat.tk:/home/kiko/codercat2/projects/mars-simulation-0"
+    "deploy": "./tools/deploy.sh"
   },
   "keywords": [],
   "author": "",
