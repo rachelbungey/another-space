@@ -144,7 +144,7 @@
     });
   </script>
 
-  <a-scene stats renderer="colorManagement: true" background="color: #eef4fd" visible=true vr-button sound-system
+  <a-scene renderer="colorManagement: true" background="color: #eef4fd" visible=true vr-button sound-system
     loading-screen="enabled: false" fog="type: exponential; density: 0.00001; color: #ffffff" light="defaultLightsEnabled: false">
 
     <a-assets>
@@ -154,6 +154,7 @@
       <a-asset-item id="hand_right" src="assets/models/hand_right.glb"></a-asset-item>
       <a-asset-item id="hand_left" src="assets/models/hand_left.glb"></a-asset-item>
       <audio id="gallery-background-sound" src="assets/sounds/Background ambience of a museum setting _AOS01433.mp3" preload="auto"></audio>
+      <audio id="gallery-music" src="assets/sounds/Underwater Exploration - Godmode.mp3" preload="auto"></audio>
 
       <video id="alex_bois-31" muted loop="true" src="assets/videos/31_Alex_Bois.mp4"></video>
       <video id="harddrive-29" muted loop="true" src="assets/videos/29_Harddrive.mp4"></video>
@@ -163,7 +164,7 @@
       <video id="joel_scott-43" muted loop="true" src="assets/videos/43_Joel_Scott.mp4"></video>
     </a-assets>
 
-    <a-entity id="camera-rig" position="0 0 8" cc-keyboard-controls="acceleration: 30" cc-vr-controls="speed: 0.4"
+    <a-entity id="camera-rig" position="0 0 8" cc-keyboard-controls="acceleration: 18" cc-vr-controls="speed: 0.4"
       collisions mover quick-turn>
       <a-entity id="camera" position="0 1.6 0" camera look-controls>
       </a-entity>
@@ -179,7 +180,10 @@
       <a-entity id="ambiLight" light="type: ambient; color: #d1e7ff; intensity: 0.01" visible=""></a-entity>
       <a-entity sky></a-entity>
 
-      <a-entity sound="src: #gallery-background-sound; positional: false; autoplay: true; loop: true; volume: 0.2;">
+      <!-- SOUNDS -->
+      <a-entity sound="src: #gallery-background-sound; positional: false; autoplay: true; loop: true; volume: 0.1;">
+      </a-entity>
+      <a-entity sound="src: #gallery-music; positional: false; autoplay: true; loop: true; volume: 0.8;">
       </a-entity>
 
       <!-- BUILDING -->
