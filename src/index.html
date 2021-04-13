@@ -68,9 +68,43 @@
       background-color: rgb(14, 14, 14);
     }
 
+    .moveTutorialContainer {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 999;
+    }
+
+    .tutorialText,
+    .tutorialImg {
+      display: inline-block;
+      z-index: 999;
+      margin-bottom: 20px;
+      color: rgb(10, 10, 10);
+    }
+
+    .tutorialText {
+      font-size: 20px;
+      line-height: 34px;
+      font-family: Courier New, Courier, monospace;
+    }
+
+    .tutorialImg {
+      margin-left: 10px;
+      margin-right: 10px;
+      width: 110px;
+      height: 71px;
+    }
+
     @media screen and (max-width: 800px) {
       .header a {
         font-size: 16px;
+      }
+
+      .moveTutorialContainer {
+        visibility: hidden;
       }
     }
   </style>
@@ -99,6 +133,8 @@
       const assets = document.querySelector('a-assets');
       const { manager: loadManager } = assets.fileLoader;
       const loadingScreen = document.querySelector('#loading-screen');
+      const desktopTutorial = document.getElementById('desktopTutorial');
+      desktopTutorial.style.display = 'none';
 
       const barEl = document.getElementById("bar");
       const loadLogEl = document.getElementById("load-log");
@@ -116,6 +152,7 @@
 
       ascene.addEventListener('loaded', () => {
         loadingScreen.style.display = 'none';
+        desktopTutorial.style.display = 'flex';
         console.log('[+] All assets loaded!')
       });
     });
@@ -129,7 +166,7 @@
       init: function () {
         this.el.addEventListener("object3dset", () => {
           const scene = this.el.getObject3D("mesh");
-          
+
           scene.traverse((object) => {
             if (object.isMesh) {
               object.material.side = THREE.DoubleSide;
@@ -145,15 +182,41 @@
   </script>
 
   <a-scene renderer="colorManagement: true" background="color: #eef4fd" visible=true vr-button sound-system
-    loading-screen="enabled: false" fog="type: exponential; density: 0.00001; color: #ffffff" light="defaultLightsEnabled: false">
-
+    loading-screen="enabled: false" fog="type: exponential; density: 0.00001; color: #ffffff"
+    light="defaultLightsEnabled: false">
+    <!-- Tutorial UI -->
+    <div id="desktopTutorial" class="moveTutorialContainer">
+      <div class="tutorialText">USE</div>
+      <svg id="wasd" class="tutorialImg move" xmlns="http://www.w3.org/2000/svg" width="24.4385in" height="16.0026in"
+        viewBox="0 0 1759.5754 1152.1854">
+        <g>
+          <rect x="7" y="602.8411" width="542.3443" height="542.3443" rx="25.8276"
+            style="fill: none;stroke: black;stroke-miterlimit: 10;stroke-width: 14px" />
+          <rect x="609.9489" y="602.8411" width="542.3443" height="542.3443" rx="25.8276"
+            style="fill: none;stroke: black;stroke-miterlimit: 10;stroke-width: 14px" />
+          <rect x="609.9489" y="7" width="542.3443" height="542.3443" rx="25.8264"
+            style="fill: none;stroke: black;stroke-miterlimit: 10;stroke-width: 14px" />
+          <rect x="1210.231" y="602.8411" width="542.3443" height="542.3443" rx="25.8276"
+            style="fill: none;stroke: black;stroke-miterlimit: 10;stroke-width: 14px" />
+          <text transform="translate(746.6516 366.5015)"
+            style="font-size: 277.9401550292969px;fill: black;font-family: Quicksand-Regular, Quicksand">W</text>
+          <text transform="translate(191.817 962.022)"
+            style="font-size: 277.9401550292969px;fill: black;font-family: Quicksand-Regular, Quicksand">A</text>
+          <text transform="translate(801.5899 962.022)"
+            style="font-size: 277.9401550292969px;fill: black;font-family: Quicksand-Regular, Quicksand">S</text>
+          <text transform="translate(1393.5104 962.022)"
+            style="font-size: 277.9401550292969px;fill: black;font-family: Quicksand-Regular, Quicksand">D</text>
+        </g>
+      </svg>
+      <div class="tutorialText">TO MOVE</div>
+    </div>
     <a-assets>
-      <img id="env-map" src="assets/textures/env.jpg" preload="auto" />
       <a-asset-item id="evironment" src="assets/models/env.glb"></a-asset-item>
       <a-asset-item id="plants" src="assets/models/plants.glb"></a-asset-item>
       <a-asset-item id="hand_right" src="assets/models/hand_right.glb"></a-asset-item>
       <a-asset-item id="hand_left" src="assets/models/hand_left.glb"></a-asset-item>
-      <audio id="gallery-background-sound" src="assets/sounds/Background ambience of a museum setting _AOS01433.mp3" preload="auto"></audio>
+      <audio id="gallery-background-sound" src="assets/sounds/Background ambience of a museum setting _AOS01433.mp3"
+        preload="auto"></audio>
       <audio id="gallery-music" src="assets/sounds/Underwater Exploration - Godmode.mp3" preload="auto"></audio>
 
       <video id="alex_bois-31" muted loop="true" src="assets/videos/31_Alex_Bois.mp4"></video>
@@ -188,8 +251,10 @@
 
       <!-- BUILDING -->
       <a-entity collider cc-material="diffuseTexMult: 1.8" gltf-part="src: #evironment; part: center_floor"></a-entity>
-      <a-entity collider cc-material="diffuseTexMult: 1.8; caustic: true" gltf-part="src: #evironment; part: center_walls"></a-entity>
-      <a-entity collider cc-material="diffuseTexMult: 1.8; caustic: true" gltf-part="src: #evironment; part: center_ceiling"></a-entity>
+      <a-entity collider cc-material="diffuseTexMult: 1.8; caustic: true"
+        gltf-part="src: #evironment; part: center_walls"></a-entity>
+      <a-entity collider cc-material="diffuseTexMult: 1.8; caustic: true"
+        gltf-part="src: #evironment; part: center_ceiling"></a-entity>
       <a-entity collider cc-material="diffuseTexMult: 1.8" gltf-part="src: #evironment; part: pool_outside"></a-entity>
       <a-entity collider cc-material="diffuseTexMult: 1.8" gltf-part="src: #evironment; part: outer_walls_L"></a-entity>
       <a-entity collider cc-material="diffuseTexMult: 1.8" gltf-part="src: #evironment; part: inner_walls_L"></a-entity>
@@ -207,18 +272,26 @@
       <a-entity collider cc-material="diffuseTexMult: 1.8" gltf-part="src: #evironment; part: ceiling3_R"></a-entity>
       <a-entity collider cc-material="diffuseTexMult: 1.8" gltf-part="src: #evironment; part: ceiling2_R"></a-entity>
       <a-entity collider cc-material="diffuseTexMult: 1.8" gltf-part="src: #evironment; part: ceiling1_R"></a-entity>
-      <a-entity caustic-material="alphaVal:  0.44;  color1:  #a3bce0;  color2:  #c9f3ff" gltf-part="src: #evironment; part: pool_water"></a-entity>
-      <a-entity caustic-material="diffuseTexMult: 1.8; color1:  #cee7fd;  color:  #00fffb" gltf-part="src: #evironment; part: pool_inside"></a-entity>
-      <a-entity cc-material="fakeSubsurface:  1;  transparent:  true;  subsurfacecolor:  #bbff00" position="0 0 0" gltf-part="src: #plants; part: center_shrubs">
+      <a-entity caustic-material="alphaVal:  0.44;  color1:  #a3bce0;  color2:  #c9f3ff"
+        gltf-part="src: #evironment; part: pool_water"></a-entity>
+      <a-entity caustic-material="diffuseTexMult: 1.8; color1:  #cee7fd;  color:  #00fffb"
+        gltf-part="src: #evironment; part: pool_inside"></a-entity>
+      <a-entity cc-material="fakeSubsurface:  1;  transparent:  true;  subsurfacecolor:  #bbff00" position="0 0 0"
+        gltf-part="src: #plants; part: center_shrubs">
       </a-entity>
 
       <!-- SCULPTURES -->
-      <a-entity material="shader:flat; wireframe: true; color: white" gltf-part="src: #evironment; part: 29_Harddrive" spin></a-entity>
+      <a-entity material="shader:flat; wireframe: true; color: white" gltf-part="src: #evironment; part: 29_Harddrive"
+        spin></a-entity>
       <a-entity cc-material gltf-part="src: #evironment; part: 32_Saul_Frame"></a-entity>
-      <a-entity chrome-material="envMapIntensity: 2; color: white" gltf-part="src: #evironment; part: 32_Saul_Mirror"></a-entity>
-      <a-entity chrome-material="envMapIntensity: 2; color: white" gltf-part="src: #evironment; part: 28_Ben_khan"></a-entity>
-      <a-entity chrome-material="envMapIntensity: 2; color: white" gltf-part="src: #evironment; part: 24_Yorum_01"></a-entity>
-      <a-entity chrome-material="envMapIntensity: 1.2; color: white" gltf-part="src: #evironment; part: 25_H2erg" spin></a-entity>
+      <a-entity chrome-material="envMapIntensity: 2; color: white" gltf-part="src: #evironment; part: 32_Saul_Mirror">
+      </a-entity>
+      <a-entity chrome-material="envMapIntensity: 2; color: white" gltf-part="src: #evironment; part: 28_Ben_khan">
+      </a-entity>
+      <a-entity chrome-material="envMapIntensity: 2; color: white" gltf-part="src: #evironment; part: 24_Yorum_01">
+      </a-entity>
+      <a-entity chrome-material="envMapIntensity: 1.2; color: white" gltf-part="src: #evironment; part: 25_H2erg" spin>
+      </a-entity>
 
       <!-- IMAGES -->
       <a-entity cc-material gltf-part="src: #evironment; part: 26_Peony_Gent_01"></a-entity>
@@ -282,7 +355,8 @@
       <a-entity cc-material gltf-part="src: #evironment; part: 42_Agnes_Jonas_01"></a-entity>
 
       <!-- VIDEOS -->
-      <a-entity gltf-part="src: #evironment; part: 29_Harddrive1" video="src: #harddrive-29; triggerRadius: 4"></a-entity>
+      <a-entity gltf-part="src: #evironment; part: 29_Harddrive1" video="src: #harddrive-29; triggerRadius: 4">
+      </a-entity>
       <a-entity gltf-part="src: #evironment; part: 37_Emilia_Wingfield" video="src: #emilia_wingfield-37"></a-entity>
       <a-entity gltf-part="src: #evironment; part: 31_Alex_Bois" video="src: #alex_bois-31"></a-entity>
       <a-entity gltf-part="src: #evironment; part: 02_Flora" video="src: #flora-02"></a-entity>
