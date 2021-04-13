@@ -73,9 +73,44 @@
       background-color: rgb(14, 14, 14);
     }
 
+    .moveTutorialContainer {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 999;
+    }
+
+    .tutorialText,
+    .tutorialImg {
+      display: inline-block;
+      z-index: 999;
+      margin-bottom: 20px;
+      color: rgb(10, 10, 10);
+      font-family: Courier New, Courier, monospace;
+    }
+
+    .tutorialText {
+      font-size: 20px;
+      line-height: 34px;
+      font-family: Courier New, Courier, monospace;
+    }
+
+    .tutorialImg {
+      margin-left: 10px;
+      margin-right: 10px;
+      width: 110px;
+      height: 71px;
+    }
+
     @media screen and (max-width: 800px) {
       .header a {
         font-size: 16px;
+      }
+
+      .moveTutorialContainer {
+        visibility: hidden;
       }
     }
   </style>
@@ -104,6 +139,8 @@
       const assets = document.querySelector('a-assets');
       const { manager: loadManager } = assets.fileLoader;
       const loadingScreen = document.querySelector('#loading-screen');
+      const desktopTutorial = document.getElementById('desktopTutorial');
+      desktopTutorial.style.display = 'none';
 
       const barEl = document.getElementById("bar");
       const loadLogEl = document.getElementById("load-log");
@@ -121,6 +158,7 @@
 
       ascene.addEventListener('loaded', () => {
         loadingScreen.style.display = 'none';
+        desktopTutorial.style.display = 'flex';
         console.log('[+] All assets loaded!')
       });
     });
@@ -153,8 +191,34 @@
     loading-screen="enabled: false" fog="type: exponential; density: 0.00001; color: #ffffff"
     light="defaultLightsEnabled: false">
 
+    <!-- Tutorial UI -->
+    <div id="desktopTutorial" class="moveTutorialContainer">
+      <div class="tutorialText">USE</div>
+      <svg id="wasd" class="tutorialImg move" xmlns="http://www.w3.org/2000/svg" width="24.4385in" height="16.0026in"
+        viewBox="0 0 1759.5754 1152.1854">
+        <g>
+          <rect x="7" y="602.8411" width="542.3443" height="542.3443" rx="25.8276"
+            style="fill: none;stroke: black;stroke-miterlimit: 10;stroke-width: 14px" />
+          <rect x="609.9489" y="602.8411" width="542.3443" height="542.3443" rx="25.8276"
+            style="fill: none;stroke: black;stroke-miterlimit: 10;stroke-width: 14px" />
+          <rect x="609.9489" y="7" width="542.3443" height="542.3443" rx="25.8264"
+            style="fill: none;stroke: black;stroke-miterlimit: 10;stroke-width: 14px" />
+          <rect x="1210.231" y="602.8411" width="542.3443" height="542.3443" rx="25.8276"
+            style="fill: none;stroke: black;stroke-miterlimit: 10;stroke-width: 14px" />
+          <text transform="translate(746.6516 366.5015)"
+            style="font-size: 277.9401550292969px;fill: black;">W</text>
+          <text transform="translate(191.817 962.022)"
+            style="font-size: 277.9401550292969px;fill: black;">A</text>
+          <text transform="translate(801.5899 962.022)"
+            style="font-size: 277.9401550292969px;fill: black;">S</text>
+          <text transform="translate(1393.5104 962.022)"
+            style="font-size: 277.9401550292969px;fill: black;">D</text>
+        </g>
+      </svg>
+      <div class="tutorialText">TO MOVE</div>
+    </div>
+
     <a-assets>
-      <img id="env-map" src="assets/textures/env.jpg" preload="auto" />
       <a-asset-item id="evironment" src="assets/models/env.glb"></a-asset-item>
       <a-asset-item id="plants" src="assets/models/plants.glb"></a-asset-item>
       <a-asset-item id="hand_right" src="assets/models/hand_right.glb"></a-asset-item>

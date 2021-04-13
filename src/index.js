@@ -12,7 +12,6 @@ import ColliderMesh from './components/ColliderMesh';
 
 import CustomVRController from './components/CustomVRController';
 import VRButton from './components/VRButton';
-import SideArrows from './components/SideArrows';
 
 import ExampleSystem from './systems/ExampleSystem';
 import SoundSystem from './systems/SoundSystem';
@@ -41,7 +40,6 @@ AFRAME.registerComponent('collisions', Collisions);
 AFRAME.registerComponent('custom-vr-controller', CustomVRController);
 AFRAME.registerComponent('vr-button', VRButton);
 AFRAME.registerComponent('gltf-part', GLTFPart);
-AFRAME.registerComponent('side-arrows', SideArrows);
 AFRAME.registerComponent('caustic-material', CausticMaterial);
 AFRAME.registerComponent('sky', SkyMaterial);
 AFRAME.registerComponent('cc-material', CCBasicMaterial);
