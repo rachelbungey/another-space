@@ -53,6 +53,7 @@
       font-size: 36px;
       color: #000;
       font-weight: 700;
+      text-shadow: 2px 2px #ffffff26;
     }
 
     .spacer {
@@ -120,8 +121,8 @@
   <div class="header">
     <a href="/">Another Space</a>
     <div class="spacer"></div>
+    <a href="https://online.pubhtml5.com/xnew/dvhf/#p=1" target="_blank">guide</a>
     <a href="./about.html">about</a>
-    <!-- <a href="https://codercat.tk" target="_blank">other</a> -->
   </div>
 
   <div id="loading-screen">
@@ -246,6 +247,8 @@
         src="assets/videos/34_Louise_Silfversparre_05.mp4" preload="auto"></video>
       <video id="louise_silfversparre_34_06" muted loop="true"
         src="assets/videos/34_Louise_Silfversparre_06.mp4" preload="auto"></video>
+      <video id="rachel_bungey_03" muted loop="true"
+        src="assets/videos/1000_Rachel_Bungey_03.mp4" preload="auto"></video>
     </a-assets>
 
     <a-entity id="camera-rig" position="0 0 8" cc-keyboard-controls="acceleration: 18" cc-vr-controls="speed: 0.4"
@@ -313,6 +316,8 @@
       </a-entity>
       <a-entity chrome-material="envMapIntensity: 1.2; color: white" gltf-part="src: #evironment; part: 25_H2erg" spin>
       </a-entity>
+      <a-entity cc-material="diffuseTexMult: 1.8" gltf-part="src: #evironment; part: 1000_Rachel_Bungey_01">
+      </a-entity>
 
       <!-- IMAGES -->
       <a-entity cc-material gltf-part="src: #evironment; part: 36_Martha_Bailey_01_01"></a-entity>
@@ -370,6 +375,7 @@
       <a-entity cc-material gltf-part="src: #evironment; part: 44_Patrick_Saville"></a-entity>
       <a-entity cc-material gltf-part="src: #evironment; part: 12_Fry_01"></a-entity>
       <a-entity cc-material gltf-part="src: #evironment; part: 27_Joe_Bungey"></a-entity>
+      <a-entity cc-material gltf-part="src: #evironment; part: 1000_Rachel_Bungey_02"></a-entity>
 
       <!-- VIDEOS -->
       <a-entity gltf-part="src: #evironment; part: 29_Harddrive1" video="src: #harddrive-29; triggerRadius: 4">
@@ -391,6 +397,8 @@
       <a-entity gltf-part="src: #evironment; part: 34_Louise_Silfversparre_05" video="src: #louise_silfversparre_34_05">
       </a-entity>
       <a-entity gltf-part="src: #evironment; part: 34_Louise_Silfversparre_06" video="src: #louise_silfversparre_34_06">
+      </a-entity>
+      <a-entity gltf-part="src: #evironment; part: 1000_Rachel_Bungey_03" video="src: #rachel_bungey_03; triggerRadius: 4">
       </a-entity>
     </a-entity>
   </a-scene>
