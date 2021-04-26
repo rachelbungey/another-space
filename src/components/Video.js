@@ -7,11 +7,14 @@ export default {
     triggerRadius: { default: 2 },
   },
 
-  init: function () {
+  update: function () {
     this.mesh = null;
 
-    this.el.addEventListener("object3dset", () => {
+    this.mesh = this.el.getObject3D("mesh");
+
+    const applyVideoTexture = () => {
       this.mesh = this.el.getObject3D("mesh");
+
       const texture = new THREE.VideoTexture(this.data.src);
 
       texture.wrapT = THREE.RepeatWrapping;
@@ -23,9 +26,20 @@ export default {
 
       this.mesh.material = mat;
       this.mesh.material.needUpdate = true;
-    });
+    };
+
+    // HACK (Kirill): Since we appending videos to the scene later sometimes object3dset is already happened
+    // so we need to account for both cases
+    if (this.mesh) {
+      applyVideoTexture(this.mesh, this.data.src);
+    } else {
+      this.el.addEventListener("object3dset", () => {
+        applyVideoTexture(this.mesh, this.data.src);
+      });
+    }
 
     const camera = document.querySelector("#camera");
+
     this.timeOfLookAt = 0;
     this.camera = camera.object3D;
     this.cameraWorldPos = new THREE.Vector3();
@@ -35,8 +49,8 @@ export default {
   },
 
   tick: function (time, deltaTime) {
-    if(!this.canPause) {
-      if(this.data.src.currentTime > 2) {
+    if (!this.canPause) {
+      if (this.data.src.currentTime > 2) {
         this.data.src.pause();
         this.canPause = true;
       }
